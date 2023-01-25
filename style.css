@@ -1,0 +1,12 @@
+#slider {
+    width: 500px;
+    overflow: hidden;
+}
+
+.slider-line {
+    display: flex;
+    position: relative;
+    transition: 1s ;
+    right: 0;
+}
+
