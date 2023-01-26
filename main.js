@@ -6,7 +6,6 @@ const btnPrev = document.createElement('input');
 btnPrev.type = "button";
 btnPrev.value = 'prev';
 btnPrev.id = 'prev';
-btnPrev.setAttribute('disabled', 'disabled');
 wrapper.append(btnPrev);
 
 const btnNext = document.createElement('input');
@@ -15,7 +14,7 @@ btnNext.value = 'next';
 btnNext.id = 'next';
 wrapper.append(btnNext);
 
-let slides = ['imgs/1.jpg','imgs/2.jpg','imgs/3.jpg','imgs/4.jpg','imgs/5.jpg','imgs/6.jpg'];
+const slides = ['imgs/1.jpg','imgs/2.jpg','imgs/3.jpg','imgs/4.jpg','imgs/5.jpg','imgs/6.jpg'];
 let template_sliders =`<div class="slider-line">`;
 
 for(let i = 0; i < slides.length; i++){
@@ -38,11 +37,13 @@ function sliderNext(){
   slide.classList.remove('active_slide');
   slide.nextElementSibling.classList.add('active_slide');
   slide = document.querySelector('.active_slide');
-  let dataSlide = slide.getAttribute('data-slide');
+  const dataSlide = slide.getAttribute('data-slide');
   sliderLine.style.right = dataSlide * 100 + '%';
   if(dataSlide == slides.length-1){
-    btnNext.setAttribute('disabled', 'disabled')
-  } ;
+    document.querySelector('#next').disabled = true;
+  } else {
+    document.querySelector('#next').disabled = false;
+  };
 }
 
 btnPrev.addEventListener('click', sliderPrev);
@@ -53,17 +54,19 @@ function sliderPrev(){
     slide.classList.remove('active_slide');
     slide.previousElementSibling.classList.add('active_slide');
     slide = document.querySelector('.active_slide');
-    let dataSlide = slide.getAttribute('data-slide');
+    const dataSlide = slide.getAttribute('data-slide');
     sliderLine.style.right = dataSlide * 100 + '%';
     if(dataSlide == 0){
-        btnPrev.setAttribute('disabled', 'disabled');
+        document.querySelector('#prev').disabled = true;
+    }else {
+        document.querySelector('#prev').disabled = false;
     };
 }
 
 const sliderWidth = document.querySelector('#slider').offsetWidth;
 const sliderLine = document.querySelector('.slider-line');
 sliderLine.style.width = sliderWidth * slides.length + `px`;
-let slidesImg = document.querySelectorAll('[data-slide]');
+const slidesImg = document.querySelectorAll('[data-slide]');
 
 for(let i = 0; i < slidesImg.length; i++ ){
     slidesImg[i].style.width = sliderWidth + `px`;
